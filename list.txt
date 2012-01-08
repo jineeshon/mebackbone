@@ -1,4 +1,4 @@
-//Model creation
+
 var GridModel = Backbone.Model.extend({defaults:{}});
 var gridModel = new GridModel({title:"Backbone Js",content:"A JavaScript Library"});
 
