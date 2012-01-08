@@ -1,0 +1,32 @@
+.wrap{
+	width:800px;
+	margin:auto;
+}
+.grid{
+	border:1px solid #000;
+	border-collapse:collapse;
+	width:58%
+}
+.grid td,.grid th{
+	border:1px solid #000;
+	padding:20px;
+}
+.close{
+	height:20px;
+	width:20px;
+	background:url("close.png") no-repeat scroll 0 0 transparent;
+}
+.add-input {
+    width: 466px;
+    font-size: 24px;
+    font-family: inherit;
+    line-height: 1.4em;
+    border: 0;
+    outline: none;
+    padding: 6px;
+    border: 1px solid #999999;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+    -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+}

@@ -1,0 +1,36 @@
+<script src="underscore-1.2.2.js"></script>
+<script src="jquery-1.6.4.js"></script>
+<script src="backbone.js"></script>
+
+    <script type="text/template" id="my-template">
+      <span class="album-title"><%= title %></span>
+      <span class="artist-name"><%= content %></span>       
+    </script>
+	<div id="container">comes here</div>
+ <script>
+ (function($){
+	window.MyModel = Backbone.Model.extend({title:"Welcome to backbone",content:"A excellent JavaScript MVC framework"});
+	window.MyView = Backbone.View.extend({
+		initialize:function(){
+			this.template = _.template($("#my-template").html());
+		},
+		render:function(){
+			var rContent = this.template(this.model.toJSON());
+			$(this.el).html(rContent);
+			return this;
+		}
+	});
+	
+	var model = new MyModel({title:"12",content:"Welcome"});
+	 
+	var view = new MyView({model:model});
+	$("#container").append(view.render().el);
+
+ 
+})(jQuery);
+	
+
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,57 @@
+<script src="underscore-1.2.2.js"></script>
+<script src="jquery-1.6.4.js"></script>
+<script src="backbone.js"></script>
+ 
+
+<script>
+var Donut = Backbone.Model.extend({
+	defaults: {
+		name: "Not specified",
+		artist: "Not specified"
+	},
+	initialize: function(){
+		console.log("Music is the answer");
+	}
+});
+
+ var Donuts = Backbone.Collection.extend({
+  model : Donut,
+  url : "/backbone/mybackbone/donuts.js"
+});
+ 
+var donuts = new Donuts;
+var cb = {
+	success:function(a,b,c){
+		console.log(a);
+		console.log(b);
+		console.log(c);
+	},
+	error:function(a,b,c){
+		console.log(a);
+		console.log(b);
+		console.log(c);
+	}
+}
+donuts.fetch(cb); // 
+
+donuts.each(function(donut) {
+ // console.log("JJJ:"+donut.get("name"));
+});
+
+function success(a,b,c){
+ 
+}
+function error(a,b,c){
+ 
+}
+alert("sdfdsfsd");
+Backbone.sync = function(method, model, success, error) { 
+	success(model);
+};
+
+
+
+</script>
+ 
+</body>
+</html>

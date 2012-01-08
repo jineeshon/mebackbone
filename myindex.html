@@ -1,0 +1,32 @@
+<script src="underscore-1.2.2.js"></script>
+<script src="jquery-1.6.4.js"></script>
+<script src="backbone.js"></script>
+
+<script type="text/template" id="grid-template">
+<tr><td>${no}</td><td>${name}</td></tr>
+</script>
+
+<script>
+ 
+	var GridModel = new Backbone.Model.extend();
+	var GridView = new Backbone.View.extend({
+		initialize:function(){
+			this.template = _.template( $("#grid-template").html());
+		},
+		render:function(){
+			var rc = this.template( this.model.toJSON());
+			$(this.el).html( rc );
+			return this;
+		}
+	});
+
+ 
+	var gridModel = new GridModel({
+		defaults:{
+			no:1,
+			name:"BackboneJs"
+		}
+	});
+	//var gridView = new GridView({model:gridModel});
+ 
+</script>

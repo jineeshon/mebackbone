@@ -1,0 +1,122 @@
+<script src="underscore-1.2.2.js"></script>
+<script src="jquery-1.6.4.js"></script>
+<script src="backbone.js"></script>
+<style>
+.grid{
+	border:1px solid #000;
+	border-collapse:collapse;
+}
+.grid td,.grid th{
+	border:1px solid #000;
+	padding:10px;
+}
+.close{
+	height:20px;
+	width:20px;
+	background:url("close.png") no-repeat scroll 0 0 transparent;
+}
+</style>
+
+<script type="text/template" id="grid-template">
+	<table class="grid">
+		<thead><tr><th>#</th><th>Name</th><th>Action</th></tr></thead>
+		<tbody id="listContent">
+			 
+		</tbody>
+		<tfoot>
+			<tr><th colspan="3">${feedback}</th></tr>
+		</tfoot>
+	</table>
+</script>
+
+<script  type="text/template" id="list-template">
+	<% _.each(jsLibList, function(item) { %>
+		<tr>
+			<td>${item.no}</td>
+			<td>${item.name}</td>
+			<td><img class="close" src="a.gif" /></td>
+		</tr>
+	<% }); %>
+</script>
+ 
+
+<div id="container"></div>
+ <script>
+ (function($){
+	window.GridModel = Backbone.Model.extend({});
+	var json = {
+		jsLibList:[{no:1,name:"ExtJS"},{no:2,name:"BackboneJs"},{no:3,name:"JQuery"}],
+		feedback:"provide your feedbacks"		
+	}
+	window.gridmodel = new GridModel(json);
+	//for handling lists
+	window.gridList = Backbone.Collection.extend({
+        model: gridmodel 
+    });	
+	
+	
+	window.GridView = Backbone.View.extend({
+	    template: "#grid-template",
+		initialize:function(){
+			_.bindAll(this, 'render');
+			this.model.bind("change",this.render);
+			this.template = _.template($(this.template).html());
+		},
+		render:function(){
+			var rContent = this.template(this.model.toJSON());
+			$(this.el).html(rContent);
+			return this;
+		}
+	});
+	
+	 
+
+	
+	 
+	 
+	 
+	gridview = new GridView({model:gridmodel});
+	$("#container").append(gridview.render().el);
+
+	
+	
+	
+	window.ListView = Backbone.View.extend({
+	    template: "#list-template",
+		tagName:"tbody",
+		initialize:function(){
+			_.bindAll(this, 'render','remove');
+			this.model.bind("change",this.render);
+			this.model.bind('destroy', this.remove, this);
+			this.template = _.template($(this.template).html());
+		},
+		render:function(){
+			var rContent = this.template(this.model.toJSON());
+			$(this.el).html(rContent);
+			return this;
+		},
+		events: {
+            'click .close': 'clear'
+        },
+		remove: function() {
+		  $(this.el).remove();
+		},
+		clear: function() {
+		  this.model.destroy();
+		}
+
+	});	
+	
+	
+	listview = new ListView({model:gridmodel});
+	$("#listContent").replaceWith(listview.render().el);
+	
+
+	
+})(jQuery);
+	
+
+</script>
+ 
+</body>
+</html>

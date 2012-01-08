@@ -1,0 +1,37 @@
+sproutcore
+zepto
+http://www.youtube.com/watch?v=amYKGX6kpEc
+
+envjs
+jasmine ftw
+sinonjs
+http://documentcloud.github.com/jammit/
+https://github.com/wycats/handlebars.js/downloads
+
+Understanding JavaScript engines of various browsers -Parashuram Narasimhan( 27)
+Advanced JavaScript techniques -Rajasekharan Vengalil 
+
+Backbone Models
+Backbone Collections
+Backbone Views
+Backbone Router
+Collections and Models 
+History Management
+Best Practices for Structuring your Application
+Testing & Debugging your Application
+
+
+
+//Docs
+For building simple web application with few dom manipulation jQuery is the right way to go, But when we try to add more and more complex functionalities to the web , it becomes extreamly difficult to manage only with jQuery.
+
+Introduction
+
+BackboneJs supplies structure to JavaScript-heavy applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing application over a RESTful JSON interface.
+
+Backbone js is  light-weight JavaScript library created by Jeremy Ashkenas. Its comes with MVC ( Model, View , Controller ) architucture and mainly helps to maintain UI layer.
+
+//View
+
+Backbone js uses jQuery to manupulate the View.
+

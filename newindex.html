@@ -1,0 +1,111 @@
+<script src="underscore-1.2.2.js"></script>
+<script src="jquery-1.6.4.js"></script>
+<script src="backbone.js"></script>
+ 
+ <link href="main.css" media="all" rel="stylesheet" type="text/css"/>
+
+<script type="text/template" id="grid-template">
+	<table class="grid">
+		<thead><tr><th>#</th><th>Name</th><th>Action</th></tr></thead>
+		<tbody>
+			<% _.each(jsLibList, function(item) { %>
+				 <tr>
+					<td>${item.no}</td>
+					<td>${item.name}</td>
+					<td><img class="close" src="a.gif" /></td>
+				</tr>
+			<% }); %>
+		</tbody>
+		<tfoot>
+			<tr><th colspan="3">
+			<% _.each(feedList, function(item) { %>
+				<div>${item}</div>
+			<% }); %>
+			</th></tr>
+		</tfoot>
+	</table>
+	<p>
+		<input id="add-new" class="add-input" placeholder="Add new Js Framework" type="text" />
+	</p>
+</script>
+<div class="wrap">
+<div id="container"></div>
+
+</div>
+ <script>
+ (function($){
+	window.GridModel = Backbone.Model.extend({});
+	window.GridView = Backbone.View.extend({
+	    template: "#grid-template",
+        tag: 'td',
+		el:"#container",
+		initialize:function(){
+			_.bindAll(this, 'render','remove');
+			this.model.bind("change",this.render);
+			this.model.bind('remove', this.remove);
+			this.template = _.template($(this.template).html());
+			this.input =  $("#add-new");
+		},
+		render:function(){
+			var rContent = this.template(this.model.toJSON());
+			$(this.el).html(rContent);
+			return this;
+		},
+		events: {
+            'click .close': 'removeItem',
+			"keypress .add-input":"updateOnEnter"
+        },
+		removeItem:function(a,b,c){ 
+			this.options.model.remove(this.model);
+		},
+		updateOnEnter:function(e){
+			if (e.keyCode == 13){
+				 
+				var feeds = this.model.get("feedList");
+				feeds.push( e.currentTarget.value );
+				this.model.set({feedList:[]});// PTR
+				//var that = this;
+				//setTimeout(function(){
+					this.model.set({feedList:feeds});
+				//},1000);
+			}
+
+		}
+	});
+
+	
+	var json = {
+		jsLibList:[{no:1,name:"ExtJS"},{no:2,name:"BackboneJs"},{no:3,name:"JQuery"}],
+		feedList:["provide your feedbacks"]
+		
+	}
+	window.gridmodel = new GridModel(json);
+	 
+	gridview = new GridView({model:gridmodel});
+	gridview.render(); 
+	
+
+	Library = Backbone.Collection.extend({
+	  model: gridmodel,
+	  url:"/gridModels"
+	});	
+	
+	
+})(jQuery);
+
+ 
+ 
+
+	Backbone.sync = function(method, model) {
+  alert(method + ": " + model.url);
+};
+
+var Accounts = new Backbone.Collection;
+Accounts.url = '/accounts';
+
+Accounts.fetch();
+ 
+</script>
+
+</body>
+</html>

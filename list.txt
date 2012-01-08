@@ -1,0 +1,31 @@
+//Model creation
+var GridModel = Backbone.Model.extend({defaults:{}});
+var gridModel = new GridModel({title:"Backbone Js",content:"A JavaScript Library"});
+
+//View Creation
+GridView = Backbone.View.extend({
+	initialize:function(){
+		this.template = _.template( $(“#grid-template”).html());
+	},
+	render:function(){
+		var rc = this.template( this.model.toJSON());
+		$(this.el).html( rc );
+		return this;
+	}
+});
+var gridView = new GridView( {model:gridModel});
+
+//Modifiy the root
+gridmodel.set({
+	jsLibList:[{no:1,name:"YUI"},{no:2,name:"Backbase"},{no:3,name:"zkoss"}]
+});
+//Single key property
+gridmodel.set({feedList:["My set of libraries!!!"]});
+
+//for delimiters
+_.templateSettings
+
+//for collection
+var GridModels = Backbone.Collection.extend({
+	model:gridModel
+});
